@@ -1,7 +1,14 @@
 import logo from './logo.svg';
 import './App.css';
+import MarvelService from './services/MarvelService';
 
 function App() {
+
+  const marvelService = new MarvelService();
+
+  marvelService.getAllCharacters().then(res => console.log("getAllCharacters: ", res));
+  marvelService.getCharacterById(1009146).then(res => console.log("getCharacterById: ", res));
+
   return (
     <div className="App">
       <header className="App-header">
