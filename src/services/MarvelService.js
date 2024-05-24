@@ -1,4 +1,4 @@
-export default class MarvelService {
+class MarvelService {
     _baseUrl = "https://gateway.marvel.com:443/v1/public/";
     _apiKey = "apikey=c552d8166361bc02cc00be38bce93003";
 
@@ -17,6 +17,20 @@ export default class MarvelService {
     }
 
     getCharacterById = async (id) => {
-        return await this.getResource(`${this._baseUrl}${id}?${this._apiKey}`);
+        const res = await this.getResource(`${this._baseUrl}characters/${id}?${this._apiKey}`);
+        const {name, description, thumbnail, urls} = res.data.results[0];
+        return this._transformChar({
+            name,
+            description,
+            thumbnail: `${thumbnail.path}.${thumbnail.extension}`,
+            homepage: urls[0].url,
+            wiki: urls[1].url,
+        });
+    }
+
+    _transformChar = (char) => {
+        return char;
     }
 }
+
+export const marvelService = new MarvelService();
