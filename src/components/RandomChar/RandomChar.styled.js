@@ -46,7 +46,7 @@ export const Btns = styled.div`
 
 export const Static = styled.div`
     padding: 40px 35px;
-    background-color: $dark;
+    background-color: var(--dark);
     position: relative;
 
     button {
@@ -60,7 +60,7 @@ export const Title = styled.p`
     line-height: 32px;
     letter-spacing: -0.045em;
     color: #ffffff;
-    
+
     &:nth-child(2) {
         margin-top: 33px;
     }

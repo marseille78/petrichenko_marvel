@@ -1,10 +1,20 @@
 import { Component } from "react";
 import mjolnir from "../../resources/img/mjolnir.png";
-import { Block, Btns, Decoration, Descr, Image, Info, Name, Self, Static, Title } from "./RandomChar.styled";
+import {
+    Block,
+    Btns,
+    Decoration,
+    Descr,
+    Image,
+    Info,
+    Name,
+    Self,
+    Static,
+    Title,
+} from "./RandomChar.styled";
 import { marvelService } from "../../services/MarvelService";
 
 class RandomChar extends Component {
-
     constructor(props) {
         super(props);
 
@@ -13,19 +23,23 @@ class RandomChar extends Component {
 
     state = {
         char: {},
-    }
+    };
+
+    onCharLoaded = (char) => {
+        this.setState({ char });
+    };
 
     updateChar = () => {
-        marvelService.getCharacterById(1011334).then(res => {
-            this.setState({
-                char: {...res},
-            })
-        });
-    }
+        const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
+
+        marvelService.getCharacterById(id).then(this.onCharLoaded);
+    };
 
     render() {
-        const {char: {name, description, thumbnail, homepage, wiki}} = this.state;
-        
+        const {
+            char: { name, description, thumbnail, homepage, wiki },
+        } = this.state;
+
         return (
             <Self data-cmp="RandomChar">
                 <Block>
@@ -53,14 +67,11 @@ class RandomChar extends Component {
                     <button className="button button__main">
                         <div className="inner">try it</div>
                     </button>
-                    <Decoration
-                        src={mjolnir}
-                        alt="mjolnir"
-                    />
+                    <Decoration src={mjolnir} alt="mjolnir" />
                 </Static>
             </Self>
         );
     }
-};
+}
 
 export default RandomChar;
