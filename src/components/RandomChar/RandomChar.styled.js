@@ -3,6 +3,7 @@ import styled from "styled-components";
 export const Self = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 50%);
+    align-items: center;
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.25);
 `;
 
