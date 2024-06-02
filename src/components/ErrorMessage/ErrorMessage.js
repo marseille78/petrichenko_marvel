@@ -1,4 +1,5 @@
 import { Self } from "./ErrorMessage.styled";
+
 import error from "./error.gif";
 
 const ErrorMessage = () => {
