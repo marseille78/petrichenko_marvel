@@ -36,3 +36,9 @@
 
 -   [сomponentDidUpdate](https://ru.legacy.reactjs.org/docs/react-component.html#componentdidupdate)
 -   [(EN) Новая документация](https://react.dev/reference/react/Component#componentdidupdate)
+
+## 153. Предохранители (Error Boundaries)
+
+-   [componentDidCatch](https://ru.legacy.reactjs.org/docs/react-component.html#componentdidcatch)
+-   [getDerivedStateFromError](https://ru.legacy.reactjs.org/docs/react-component.html#static-getderivedstatefromerror)
+-   [(EN) Новая документация](https://react.dev/reference/react/Component#componentdidcatch)

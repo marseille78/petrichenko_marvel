@@ -5,6 +5,7 @@ import CharList from "../CharList";
 import RandomChar from "../RandomChar";
 
 import { Content, Self } from "./App.styled";
+import ErrorBoundary from "../ErrorBoundary";
 
 class App extends Component {
     state = {
@@ -23,9 +24,15 @@ class App extends Component {
         return (
             <Self>
                 <main>
-                    <RandomChar />
+                    <ErrorBoundary>
+                        <RandomChar />
+                    </ErrorBoundary>
                     <Content>
-                        <CharList onChangeSelected={this.onChangeSelected} />
+                        <ErrorBoundary>
+                            <CharList
+                                onChangeSelected={this.onChangeSelected}
+                            />
+                        </ErrorBoundary>
                         <CharInfo selectedId={selectedId} />
                     </Content>
                     {/* <img className="bg-decoration" src={decoration} alt="vision" /> */}
