@@ -85,6 +85,7 @@ export const Self = styled.div`
         border: none;
         background-color: transparent;
         cursor: pointer;
+
         &__long {
             display: block;
             width: 170px;
@@ -96,6 +97,7 @@ export const Self = styled.div`
             line-height: 18px;
             padding: 0 18px;
             transition: none;
+
             &::before {
                 border-color: var(--main-color) transparent;
                 border-style: solid;
@@ -163,6 +165,17 @@ export const Self = styled.div`
         }
         &:hover {
             transform: translateY(-5px);
+        }
+
+        &:disabled .inner,
+        &.button__main:disabled::before,
+        &.button__main:disabled::after {
+            background-color: var(--grey);
+        }
+
+        &:disabled .inner::before,
+        &:disabled .inner::after {
+            border-color: var(--grey) transparent;
         }
     }
 `;

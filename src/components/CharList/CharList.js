@@ -10,8 +10,10 @@ import { marvelService } from "../../services/MarvelService";
 class CharList extends Component {
     state = {
         charList: [],
-        loading: false,
+        loading: true,
         error: false,
+        offset: 0,
+        loadingNewItem: false,
     };
 
     componentDidMount = () => {
@@ -19,31 +21,45 @@ class CharList extends Component {
     };
 
     onUpdateState = () => {
-        this.setState({
-            loading: true,
-        });
+        this.onLoadingNewItems();
 
         marvelService
-            .getAllCharacters()
-            .then((charList) => {
-                this.setState({
-                    charList,
-                });
-            })
-            .catch((err) => {
-                this.setState({
-                    error: true,
-                });
-            })
-            .finally(() => {
-                this.setState({
-                    loading: false,
-                });
-            });
+            .getAllCharacters(this.state.offset)
+            .then(this.getItems)
+            .catch(this.handleError)
+            .finally(this.finishLoading);
+    };
+
+    onLoadingNewItems = () => {
+        this.setState({
+            loadingNewItem: true,
+        });
+    };
+
+    getItems = (currentCharList) => {
+        this.setState(({ charList, offset }) => {
+            return {
+                charList: [...charList, ...currentCharList],
+                offset: offset + 9,
+                loadingNewItem: false,
+            };
+        });
+    };
+
+    finishLoading = () => {
+        this.setState({
+            loading: false,
+        });
+    };
+
+    handleError = (err) => {
+        this.setState({
+            error: true,
+        });
     };
 
     render() {
-        const { charList, loading, error } = this.state;
+        const { charList, loading, error, offset, loadingNewItem } = this.state;
         const { onChangeSelected } = this.props;
 
         const spinner = loading ? <Spinner /> : null;
@@ -59,7 +75,11 @@ class CharList extends Component {
                     {errorLoading}
                     {content}
                 </Grid>
-                <button className="button button__main button__long">
+                <button
+                    className="button button__main button__long"
+                    onClick={() => this.onUpdateState(offset)}
+                    disabled={loadingNewItem ? true : false}
+                >
                     <div className="inner">load more</div>
                 </button>
             </List>

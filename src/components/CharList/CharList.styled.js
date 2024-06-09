@@ -22,7 +22,6 @@ export const Item = styled.li`
         width: 200px;
         height: 200px;
         object-fit: cover;
-        /* transform: translate(-15px, -15px); */
     }
 
     &.selected {
