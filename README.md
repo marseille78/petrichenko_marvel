@@ -48,3 +48,21 @@
 -   [prop-types npm](https://www.npmjs.com/package/prop-types)
 -   [Базовая документация](https://ru.legacy.reactjs.org/docs/typechecking-with-proptypes.html)
 -   [(EN) Новая документация](https://react.dev/reference/react/Component#static-proptypes)
+
+## 155. Вставка элементов через props.children
+
+-   [методы React.children](https://ru.legacy.reactjs.org/docs/react-api.html#reactchildren)
+-   [cloneElement()](https://ru.legacy.reactjs.org/docs/react-api.html#reactchildren)
+-   [(EN) Новая документация](https://react.dev/reference/react/Children)
+
+## 157. Render-props паттерн
+
+-   [Базовая документация](https://ru.legacy.reactjs.org/docs/render-props.html)
+
+## 158. Что такое ref и зачем он нужен
+
+-   [Базовая документация](https://ru.legacy.reactjs.org/docs/refs-and-the-dom.html)
+-   [Перенаправление рефов](https://ru.legacy.reactjs.org/docs/forwarding-refs.html)
+-   [(EN) Новая документация](https://react.dev/learn/manipulating-the-dom-with-refs)
+-   [(EN) forwardRef](https://react.dev/reference/react/forwardRef)
+-   [Перевод новой документации](https://react.dev/reference/react/forwardRef)

@@ -14,6 +14,7 @@ class CharList extends Component {
         error: false,
         offset: 0,
         loadingNewItem: false,
+        activeChar: null,
     };
 
     componentDidMount = () => {
@@ -58,14 +59,20 @@ class CharList extends Component {
         });
     };
 
+    setSelectedItem = (id) => {
+        this.setState({
+            activeChar: id,
+        });
+        this.props.onChangeSelected(id);
+    }
+
     render() {
-        const { charList, loading, error, offset, loadingNewItem } = this.state;
-        const { onChangeSelected } = this.props;
+        const { charList, loading, error, offset, loadingNewItem, activeChar } = this.state;
 
         const spinner = loading ? <Spinner /> : null;
         const errorLoading = error ? <ErrorMessage /> : null;
         const content = !(loading || error) ? (
-            <View charList={charList} onChangeSelected={onChangeSelected} />
+            <View charList={charList} onChangeSelected={this.setSelectedItem} activeChar={activeChar} />
         ) : null;
 
         return (
@@ -87,10 +94,14 @@ class CharList extends Component {
     }
 }
 
-const View = ({ charList, onChangeSelected }) => {
+const View = ({ charList, onChangeSelected, activeChar }) => {
     return charList.map(({ id, thumbnail, name }) => {
         return (
-            <Item key={id} onClick={() => onChangeSelected(id)}>
+            <Item
+                key={id}
+                className={activeChar === id ? "selected" : null}
+                onClick={() => onChangeSelected(id)}
+            >
                 <img src={thumbnail} alt={name} />
                 <Name>{name}</Name>
             </Item>
