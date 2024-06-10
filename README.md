@@ -66,3 +66,19 @@
 -   [(EN) Новая документация](https://react.dev/learn/manipulating-the-dom-with-refs)
 -   [(EN) forwardRef](https://react.dev/reference/react/forwardRef)
 -   [Перевод новой документации](https://react.dev/reference/react/forwardRef)
+
+## 159. Порталы
+
+-   [Статья с хорошим примером](https://habr.com/ru/companies/smartprogress/articles/306096/)
+-   [Базовая документация](https://ru.legacy.reactjs.org/docs/portals.html)
+-   [Статья №2](https://nuancesprog.ru/p/11039/)
+-   [Переиспользуемые порталы](https://nuancesprog.ru/p/11039/)
+-   [(EN) Новая документация](https://react.dev/reference/react-dom/createPortal)
+
+## 160. “Бандлинг” и выгрузка проекта на сервер
+
+-   [link-host](https://link-host.net/hosting/)
+-   [Документация выгрузки проекта](https://create-react-app.dev/docs/deployment/)
+-   [heroku](https://www.heroku.com/)
+-   [Бесплатный хостинг](https://www.zzz.com.ua/ru)
+-   [filezilla - ftp клиент](https://filezilla.ru/)
