@@ -82,3 +82,42 @@
 -   [heroku](https://www.heroku.com/)
 -   [Бесплатный хостинг](https://www.zzz.com.ua/ru)
 -   [filezilla - ftp клиент](https://filezilla.ru/)
+
+## 161. Введение в хуки
+
+-   [Дают ли хуки все возможности классов?](https://ru.legacy.reactjs.org/docs/hooks-faq.html#do-hooks-cover-all-use-cases-for-classes)
+-   [Ответы на вопросы](https://ru.legacy.reactjs.org/docs/hooks-faq.html)
+-   [Правила хуков](https://ru.legacy.reactjs.org/docs/hooks-rules.html)
+
+## 162. useState
+
+-   [Базовая документация](https://ru.legacy.reactjs.org/docs/hooks-state.html)
+-   [(EN) Новая документация](https://react.dev/reference/react/useState)
+-   [Краткий перевод](https://reactdev.ru/types/052/#usestate)
+
+## 163. useEffect
+
+-   [почему эффекты выполняются при каждом обновлении](https://ru.legacy.reactjs.org/docs/hooks-effect.html#explanation-why-effects-run-on-each-update)
+-   [Пример API банка](https://bank.gov.ua/ua/open-data/api-dev)
+-   [Базовая документация](https://ru.legacy.reactjs.org/docs/hooks-effect.html)
+-   [(EN) Новая документация](https://react.dev/reference/react/useEffect)
+-   [Краткий перевод](https://reactdev.ru/types/052/#useeffect-uselayouteffect)
+
+## 164. useCallback
+
+-   [Базовая документация](https://ru.legacy.reactjs.org/docs/hooks-reference.html#usecallback)
+-   [(EN) Новая документация](https://react.dev/reference/react/useCallback)
+-   [Краткий перевод](https://reactdev.ru/types/052/#usecallback)
+
+## 165. useMemo
+
+-   [Базовая документация](https://ru.legacy.reactjs.org/docs/hooks-reference.html#usememo)
+-   [Крутой гайд по рендеру](https://alexsidorenko.com/blog/react-render-cheat-sheet/)
+-   [(EN) Новая документация](https://react.dev/reference/react/useMemo)
+-   [Краткий перевод](https://reactdev.ru/types/052/#usememo)
+
+## 166. useRef
+
+-   [Базовая документация](https://ru.legacy.reactjs.org/docs/hooks-reference.html#useref)
+-   [(EN) Новая документация](https://react.dev/reference/react/useRef)
+-   [Краткий перевод](https://reactdev.ru/types/052/#useref)
