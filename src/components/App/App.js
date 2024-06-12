@@ -1,6 +1,11 @@
-import {Component, useCallback, useEffect, useState} from 'react';
+import {Component, useCallback, useEffect, useMemo, useState} from 'react';
 import {Container} from 'react-bootstrap';
 import './App.css';
+
+const countTotal = (num) => {
+    console.log("Counting...");
+    return num + 10;
+};
 
 
 /* const getSomeImages = () => {
@@ -87,22 +92,28 @@ const Slider = (props) => {
         setAutoplay(autoplay => !autoplay);
     }
 
+    const total = useMemo(() => {
+        return countTotal(slide);
+    }, [slide]);
+
+    const style = useMemo(() => (
+        {
+            color: slide > 4 ? 'red' : 'black',
+        }
+    ), [slide]);
+
+    useEffect(() => {
+        console.log('Styles');
+    }, [style]);
+
     return (
         <Container>
             <div className="slider w-50 m-auto">
-                {/* <img className="d-block w-100" src="https://www.planetware.com/wpimages/2020/02/france-in-pictures-beautiful-places-to-photograph-eiffel-tower.jpg" alt="slide" /> */}
-
-                {/* {
-                    getSomeImages().map((url, i) => {
-                        return (
-                            <img key={i} className="d-block w-100" src={url} alt="slide" />
-                        )
-                    })
-                } */}
 
                 <Slide getSomeImages={getSomeImages} />
                 
                 <div className="text-center mt-5">Active slide {slide} <br/> {autoplay ? 'auto' : null}</div>
+                <div style={style} className="text-center mt-5">Total slides: {total}</div>
                 <div className="buttons mt-3">
                     <button 
                         className="btn btn-primary me-2"
