@@ -1,45 +1,43 @@
-import { Component } from "react";
+import {useEffect, useRef, useState} from 'react';
+import {Container} from 'react-bootstrap';
+import './App.css';
 
-import CharInfo from "../CharInfo";
-import CharList from "../CharList";
-import RandomChar from "../RandomChar";
+const Form = () => {
+    const [text, setText] = useState("");
 
-import { Content, Self } from "./App.styled";
-import ErrorBoundary from "../ErrorBoundary";
+    // const myRef = useRef(null);
+    const myRef = useRef(1);
 
-class App extends Component {
-    state = {
-        selectedId: null,
-    };
+    // const focusFirstTI = () => {
+    //     myRef.current.focus();
+    // }
 
-    onChangeSelected = (id) => {
-        this.setState({
-            selectedId: id,
-        });
-    };
+    useEffect(() => {
+        console.log(myRef.current);
+    });
 
-    render() {
-        const { selectedId } = this.state;
+    return (
+        <Container>
+            <form className="w-50 border mt-5 p-3 m-auto">
+                <div className="mb-3">
+                    <label htmlFor="exampleFormControlInput1" className="form-label">Email address</label>
+                    {/* <input ref={myRef} type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/> */}
+                    <input onChange={(e) => setText(e.target.value)} type="email" className="form-control" id="exampleFormControlInput1" placeholder="name@example.com"/>
+                    </div>
+                    <div className="mb-3">
+                    <label htmlFor="exampleFormControlTextarea1" className="form-label">Example textarea</label>
+                    {/* <textarea onClick={focusFirstTI} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea> */}
+                    <textarea onClick={() => myRef.current + 1} className="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                </div>
+            </form>
+        </Container>
+    )
+}
 
-        return (
-            <Self>
-                <main>
-                    <ErrorBoundary>
-                        <RandomChar />
-                    </ErrorBoundary>
-                    <Content>
-                        <ErrorBoundary>
-                            <CharList
-                                onChangeSelected={this.onChangeSelected}
-                            />
-                        </ErrorBoundary>
-                        <CharInfo selectedId={selectedId} />
-                    </Content>
-                    {/* <img className="bg-decoration" src={decoration} alt="vision" /> */}
-                </main>
-            </Self>
-        );
-    }
+function App() {
+    return (
+        <Form/>
+    );
 }
 
 export default App;
