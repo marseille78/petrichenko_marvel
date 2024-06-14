@@ -1,37 +1,77 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Container } from "react-bootstrap";
+import "./App.css";
 
-import CharInfo from "../CharInfo";
-import CharList from "../CharList";
-import RandomChar from "../RandomChar";
+function useInputWithValidate(initialValue) {
+    const [value, setValue] = useState(initialValue);
 
-import { Content, Self } from "./App.styled";
-import ErrorBoundary from "../ErrorBoundary";
-
-const App = () => {
-    const [selectedId, setSelectedId] = useState(null);
-
-    const onChangeSelected = (id) => {
-        setSelectedId(id);
+    const onChange = (e) => {
+        setValue(e.target.value);
     };
 
+    const validateInput = () => {
+        return value.search(/\d/) >= 0;
+    };
+
+    return { value, onChange, validateInput };
+}
+
+const Form = () => {
+    // const [text, setText] = useState("");
+    // const [textarea, setTextarea] = useState("");
+
+    const input = useInputWithValidate("");
+    const textarea = useInputWithValidate("");
+
+    const color = input.validateInput() ? "text-danger" : null;
+
     return (
-        <Self>
-            <main>
-                <ErrorBoundary>
-                    <RandomChar />
-                </ErrorBoundary>
-                <Content>
-                    <ErrorBoundary>
-                        <CharList
-                            onChangeSelected={onChangeSelected}
-                        />
-                    </ErrorBoundary>
-                    <CharInfo selectedId={selectedId} />
-                </Content>
-                {/* <img className="bg-decoration" src={decoration} alt="vision" /> */}
-            </main>
-        </Self>
+        <Container>
+            <form className="w-50 border mt-5 p-3 m-auto">
+                <div className="mb-3">
+                    <input
+                        value={`${input.value} / ${textarea.value}`}
+                        type="text"
+                        className="form-control"
+                        readOnly
+                    />
+                    <label
+                        htmlFor="exampleFormControlInput1"
+                        className="form-label mt-3"
+                    >
+                        Email address
+                    </label>
+                    <input
+                        onChange={input.onChange}
+                        type="email"
+                        value={input.value}
+                        className={`form-control ${color}`}
+                        id="exampleFormControlInput1"
+                        placeholder="name@example.com"
+                    />
+                </div>
+                <div className="mb-3">
+                    <label
+                        htmlFor="exampleFormControlTextarea1"
+                        className="form-label"
+                    >
+                        Example textarea
+                    </label>
+                    <textarea
+                        onChange={textarea.onChange}
+                        value={textarea.value}
+                        className="form-control"
+                        id="exampleFormControlTextarea1"
+                        rows="3"
+                    ></textarea>
+                </div>
+            </form>
+        </Container>
     );
+};
+
+function App() {
+    return <Form />;
 }
 
 export default App;
