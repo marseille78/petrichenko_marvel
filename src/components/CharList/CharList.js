@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 
 import Spinner from "../Spinner";
 import ErrorMessage from "../ErrorMessage";
@@ -7,92 +7,79 @@ import { Grid, Item, List, Name } from "./CharList.styled";
 
 import { marvelService } from "../../services/MarvelService";
 
-class CharList extends Component {
-    state = {
-        charList: [],
-        loading: true,
-        error: false,
-        offset: 0,
-        loadingNewItem: false,
-        activeChar: null,
-    };
+const CharList = ({ onChangeSelected }) => {
+    const [charList, setCharList] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [offset, setOffset] = useState(0);
+    const [loadingNewItem, setLoadingNewItem] = useState(false);
+    const [activeChar, setActiveChar] = useState(null);
 
-    componentDidMount = () => {
-        this.onUpdateState();
-    };
+    useEffect(() => {
+        onUpdateState();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
-    onUpdateState = () => {
-        this.onLoadingNewItems();
+    const onUpdateState = () => {
+        onLoadingNewItems();
 
         marvelService
-            .getAllCharacters(this.state.offset)
-            .then(this.getItems)
-            .catch(this.handleError)
-            .finally(this.finishLoading);
+            .getAllCharacters(offset)
+            .then(getItems)
+            .catch(handleError)
+            .finally(finishLoading);
     };
 
-    onLoadingNewItems = () => {
-        this.setState({
-            loadingNewItem: true,
-        });
+    const onLoadingNewItems = () => {
+        setLoadingNewItem(true);
     };
 
-    getItems = (currentCharList) => {
-        this.setState(({ charList, offset }) => {
-            return {
-                charList: [...charList, ...currentCharList],
-                offset: offset + 9,
-                loadingNewItem: false,
-            };
-        });
+    const getItems = (currentCharList) => {
+        setCharList((charList) => [...charList, ...currentCharList]);
+        setOffset((offset) => offset + 9);
+        setLoadingNewItem(false);
     };
 
-    finishLoading = () => {
-        this.setState({
-            loading: false,
-        });
+    const finishLoading = () => {
+        setLoading(false);
     };
 
-    handleError = (err) => {
-        this.setState({
-            error: true,
-        });
+    const handleError = () => {
+        setError(true);
     };
 
-    setSelectedItem = (id) => {
-        this.setState({
-            activeChar: id,
-        });
-        this.props.onChangeSelected(id);
-    }
+    const setSelectedItem = (id) => {
+        setActiveChar(id);
+        onChangeSelected(id);
+    };
 
-    render() {
-        const { charList, loading, error, offset, loadingNewItem, activeChar } = this.state;
+    const spinner = loading ? <Spinner /> : null;
+    const errorLoading = error ? <ErrorMessage /> : null;
+    const content = !(loading || error) ? (
+        <View
+            charList={charList}
+            onChangeSelected={setSelectedItem}
+            activeChar={activeChar}
+        />
+    ) : null;
 
-        const spinner = loading ? <Spinner /> : null;
-        const errorLoading = error ? <ErrorMessage /> : null;
-        const content = !(loading || error) ? (
-            <View charList={charList} onChangeSelected={this.setSelectedItem} activeChar={activeChar} />
-        ) : null;
-
-        return (
-            <List>
-                <Grid>
-                    {spinner}
-                    {errorLoading}
-                    {content}
-                </Grid>
-                <button
-                    className="button button__main button__long"
-                    onClick={() => this.onUpdateState(offset)}
-                    disabled={loadingNewItem ? true : false}
-                >
-                    <div className="inner">load more</div>
-                </button>
-            </List>
-        );
-    }
-}
+    return (
+        <List>
+            <Grid>
+                {spinner}
+                {errorLoading}
+                {content}
+            </Grid>
+            <button
+                className="button button__main button__long"
+                onClick={() => onUpdateState(offset)}
+                disabled={loadingNewItem ? true : false}
+            >
+                <div className="inner">load more</div>
+            </button>
+        </List>
+    );
+};
 
 const View = ({ charList, onChangeSelected, activeChar }) => {
     return charList.map(({ id, thumbnail, name }) => {

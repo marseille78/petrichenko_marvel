@@ -1,4 +1,4 @@
-import { Component } from "react";
+import { useEffect, useState } from "react";
 
 import Spinner from "../Spinner";
 import ErrorMessage from "../ErrorMessage";
@@ -55,62 +55,45 @@ const ComicsList = ({ comicsList = [] }) => {
     );
 };
 
-class CharInfo extends Component {
-    state = {
-        char: null,
-        loading: false,
-        error: false,
-    };
+const CharInfo = ({ selectedId }) => {
+    const [char, setChar] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState(false);
 
-    componentDidUpdate = (prevProps, prev) => {
-        if (prevProps.selectedId !== this.props.selectedId) {
-            this.onSetChar(this.props.selectedId);
-        }
-    };
+    useEffect(() => {
+        if (!selectedId) return;
+        onSetChar(selectedId);
+    }, [selectedId]);
 
-    onSetChar = (id) => {
-        this.setState({
-            loading: true,
-        });
+    const onSetChar = (id) => {
+        setLoading(true);
 
         marvelService
             .getCharacterById(id)
             .then((char) => {
-                this.setState({
-                    char,
-                });
+                setChar(char);
             })
             .catch((res) => {
-                this.setState({
-                    error: true,
-                });
+                setError(true);
             })
             .finally(() => {
-                this.setState({
-                    loading: false,
-                });
+                setLoading(false);
             });
     };
 
-    render() {
-        const { char, loading, error } = this.state;
+    const skeleton = char || loading || error ? null : <Skeleton />;
+    const spinner = loading ? <Spinner /> : null;
+    const errorLoading = error ? <ErrorMessage /> : null;
+    const content = !(loading || error || !char) ? <View char={char} /> : null;
 
-        const skeleton = char || loading || error ? null : <Skeleton />;
-        const spinner = loading ? <Spinner /> : null;
-        const errorLoading = error ? <ErrorMessage /> : null;
-        const content = !(loading || error || !char) ? (
-            <View char={char} />
-        ) : null;
-
-        return (
-            <Self data-cmp="CharInfo">
-                {skeleton}
-                {spinner}
-                {errorLoading}
-                {content}
-            </Self>
-        );
-    }
-}
+    return (
+        <Self data-cmp="CharInfo">
+            {skeleton}
+            {spinner}
+            {errorLoading}
+            {content}
+        </Self>
+    );
+};
 
 export default CharInfo;
