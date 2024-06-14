@@ -121,3 +121,12 @@
 -   [Базовая документация](https://ru.legacy.reactjs.org/docs/hooks-reference.html#useref)
 -   [(EN) Новая документация](https://react.dev/reference/react/useRef)
 -   [Краткий перевод](https://reactdev.ru/types/052/#useref)
+
+## 168. Создание собственных хуков
+
+-   [Базовая документация](https://ru.legacy.reactjs.org/docs/hooks-custom.html)
+-   [Сервис готовых хуков](https://usehooks.com/)
+-   [Топ 10 библиотек-хуков](https://www.bornfight.com/blog/top-10-react-hook-libraries/)
+-   [API случайного числа](https://www.random.org/clients/http/api/)
+-   [(EN) Новая документация](https://react.dev/learn/reusing-logic-with-custom-hooks#)
+-   [Перевод новой документации](https://reactdev.ru/learn/reusing-logic-with-custom-hooks/)
