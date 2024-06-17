@@ -4,6 +4,8 @@ import Spinner from "../Spinner";
 import ErrorMessage from "../ErrorMessage";
 import Skeleton from "../Skeleton";
 
+import useMarvelService from "../../services/MarvelService";
+
 import {
     Basics,
     Btns,
@@ -14,8 +16,6 @@ import {
     Name,
     Self,
 } from "./CharInfo.styled";
-
-import { marvelService } from "../../services/MarvelService";
 
 const View = ({
     char: { name, homepage, wiki, thumbnail, description, comics },
@@ -57,8 +57,8 @@ const ComicsList = ({ comicsList = [] }) => {
 
 const CharInfo = ({ selectedId }) => {
     const [char, setChar] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
+
+    const { loading, error, getCharacterById, clearError } = useMarvelService();
 
     useEffect(() => {
         if (!selectedId) return;
@@ -66,19 +66,11 @@ const CharInfo = ({ selectedId }) => {
     }, [selectedId]);
 
     const onSetChar = (id) => {
-        setLoading(true);
+        clearError();
 
-        marvelService
-            .getCharacterById(id)
-            .then((char) => {
-                setChar(char);
-            })
-            .catch((res) => {
-                setError(true);
-            })
-            .finally(() => {
-                setLoading(false);
-            });
+        getCharacterById(id).then((char) => {
+            setChar(char);
+        });
     };
 
     const skeleton = char || loading || error ? null : <Skeleton />;

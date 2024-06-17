@@ -1,37 +1,32 @@
-class MarvelService {
-    _baseUrl = "https://gateway.marvel.com:443/v1/public/";
-    _apiKey = "apikey=c552d8166361bc02cc00be38bce93003";
-    _baseOffset = 0;
+import { useHttp } from "../hooks/http.hook";
 
-    getResource = async (url) => {
-        const res = await fetch(url);
+const useMarvelService = () => {
+    const { loading, request, error, clearError } = useHttp();
 
-        if (!res.ok) {
-            throw new Error(`Could nont fetch ${url}, status: ${res.status}`);
-        }
+    const _baseUrl = "https://gateway.marvel.com:443/v1/public/";
+    const _apiKey = "apikey=c552d8166361bc02cc00be38bce93003";
+    const _baseOffset = 0;
 
-        return await res.json();
-    };
-
-    getAllCharacters = async (offset = this._baseOffset) => {
-        const res = await this.getResource(
-            `${this._baseUrl}characters?${this._apiKey}&limit=9&offset=${offset}`
+    const getAllCharacters = async (offset = _baseOffset) => {
+        const res = await request(
+            `${_baseUrl}characters?${_apiKey}&limit=9&offset=${offset}`
         );
-        return res.data.results.map(this._transformChar);
+        return res.data.results.map(_transformChar);
     };
 
-    getCharacterById = async (id) => {
-        const res = await this.getResource(
-            `${this._baseUrl}characters/${id}?${this._apiKey}`
-        );
-        // console.log(
-        //     "getCharacterById: ",
-        //     this._transformChar(res.data.results[0])
-        // );
-        return this._transformChar(res.data.results[0]);
+    const getCharacterById = async (id) => {
+        const res = await request(`${_baseUrl}characters/${id}?${_apiKey}`);
+        return _transformChar(res.data.results[0]);
     };
 
-    _transformChar = ({ name, description, thumbnail, urls, id, comics }) => {
+    const _transformChar = ({
+        name,
+        description,
+        thumbnail,
+        urls,
+        id,
+        comics,
+    }) => {
         const checkedDescription =
             description.trim().length > 0
                 ? description.length > 100
@@ -49,6 +44,8 @@ class MarvelService {
             comics: comics.items,
         };
     };
-}
 
-export const marvelService = new MarvelService();
+    return { loading, error, getAllCharacters, getCharacterById, clearError };
+};
+
+export default useMarvelService;

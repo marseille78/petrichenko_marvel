@@ -22,9 +22,7 @@ const App = () => {
                 </ErrorBoundary>
                 <Content>
                     <ErrorBoundary>
-                        <CharList
-                            onChangeSelected={onChangeSelected}
-                        />
+                        <CharList onChangeSelected={onChangeSelected} />
                     </ErrorBoundary>
                     <CharInfo selectedId={selectedId} />
                 </Content>
@@ -32,6 +30,6 @@ const App = () => {
             </main>
         </Self>
     );
-}
+};
 
 export default App;

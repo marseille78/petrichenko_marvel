@@ -18,12 +18,11 @@ import {
 
 import mjolnir from "../../resources/img/mjolnir.png";
 
-import { marvelService } from "../../services/MarvelService";
+import useMarvelService from "../../services/MarvelService";
 
 const RandomChar = () => {
     const [char, setChar] = useState({});
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(false);
+    const { loading, error, getCharacterById, clearError } = useMarvelService();
 
     useEffect(() => {
         updateChar();
@@ -32,24 +31,14 @@ const RandomChar = () => {
 
     const onCharLoaded = (char) => {
         setChar(char);
-        setLoading(false);
-    };
-
-    const onSpinnerStart = () => {
-        setLoading(true);
-    };
-
-    const onSetError = () => {
-        setError(true);
-        setLoading(false);
     };
 
     const updateChar = () => {
-        onSpinnerStart();
+        clearError();
 
         const id = Math.floor(Math.random() * (1011400 - 1011000) + 1011000);
 
-        marvelService.getCharacterById(id).then(onCharLoaded).catch(onSetError);
+        getCharacterById(id).then(onCharLoaded);
     };
 
     const spinner = loading ? <Spinner /> : null;
